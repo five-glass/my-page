@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>씨몬스터 생선요리 가이드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --sm-orange:#F15A30;--sm-orange-hover:#D94E26;
+  --sm-orange-light:rgba(241,90,48,0.06);--sm-orange-border:rgba(241,90,48,0.12);
+  --sm-bg-warm:#FFF5F0;--sm-highlight:#FFF4B3;
+  --sm-black:#1A1A1A;--sm-dark:#37352F;--sm-text-mid:#666;--sm-text-light:#999;
+  --sm-border:#EEE;--sm-bg:#FAFAFA;
+  --sm-radius-sm:8px;--sm-radius-lg:12px;--sm-radius-card:16px;--sm-radius-pill:50px;
+  --sm-shadow-card:0 4px 12px rgba(0,0,0,0.04);--sm-shadow-float:0 10px 30px rgba(0,0,0,0.06);
+  --sm-shadow-orange:0 4px 20px rgba(241,90,48,0.15);
+}
+body{
+  font-family:"Pretendard Variable","Pretendard",-apple-system,BlinkMacSystemFont,system-ui,Roboto,"Helvetica Neue","Segoe UI","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  background:var(--sm-bg);min-height:100vh;color:var(--sm-black);
+}
+.container{max-width:480px;margin:0 auto;padding:0 24px 60px;display:flex;flex-direction:column}
+
+/* Header */
+.page-header{
+  padding:40px 0 0;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;
+}
+.page-header img{height:68px;width:auto}
+.page-title{font-size:26px;font-weight:800;line-height:1.3}
+.page-title span{color:var(--sm-orange)}
+.page-desc{font-size:14px;color:var(--sm-text-mid);line-height:1.6}
+
+/* Nav tabs */
+.nav-tabs{
+  display:flex;gap:6px;margin-top:28px;padding:4px;
+  background:#fff;border-radius:var(--sm-radius-pill);border:1px solid var(--sm-border);
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+.nav-tab{
+  flex:1;padding:10px 6px;border:none;border-radius:var(--sm-radius-pill);
+  font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;
+  font-family:inherit;background:transparent;color:var(--sm-text-mid);white-space:nowrap;
+}
+.nav-tab.active{background:var(--sm-orange);color:#fff;box-shadow:var(--sm-shadow-orange)}
+.nav-tab:not(.active):hover{background:var(--sm-bg-warm);color:var(--sm-orange)}
+
+/* Section */
+.section{display:none;flex-direction:column;gap:16px;margin-top:24px}
+.section.active{display:flex}
+
+/* Card */
+.info-card{
+  background:#fff;border:1px solid var(--sm-border);border-radius:26px;
+  padding:28px 24px;box-shadow:var(--sm-shadow-card);
+  display:flex;flex-direction:column;gap:16px;
+  animation:fadeUp .4s ease both;
+}
+.info-card:nth-child(2){animation-delay:.08s}
+.info-card:nth-child(3){animation-delay:.16s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.card-number{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:50%;
+  background:var(--sm-orange);color:#fff;font-size:14px;font-weight:800;
+}
+.card-question{
+  font-size:17px;font-weight:700;line-height:1.45;color:var(--sm-black);
+  letter-spacing:-0.02em;
+}
+.card-answer{
+  display:flex;align-items:center;gap:8px;
+  padding:12px 16px;background:var(--sm-bg-warm);border-radius:var(--sm-radius-lg);
+  font-size:15px;font-weight:700;color:var(--sm-orange);
+}
+.card-answer .answer-icon{font-size:18px;flex-shrink:0}
+.card-body{
+  font-size:14px;line-height:1.7;color:var(--sm-text-mid);
+}
+.card-body strong{color:var(--sm-orange)}
+
+/* Tip box */
+.tip-box{
+  padding:14px 16px;background:rgba(241,90,48,0.04);
+  border-left:3px solid var(--sm-orange);border-radius:0 var(--sm-radius-sm) var(--sm-radius-sm) 0;
+  font-size:13px;line-height:1.6;color:var(--sm-dark);
+}
+.tip-box .tip-label{font-weight:700;color:var(--sm-orange);margin-bottom:4px}
+
+/* Divider */
+.section-divider{
+  display:flex;align-items:center;gap:12px;margin:8px 0;
+}
+.section-divider .line{flex:1;height:1px;background:var(--sm-border)}
+.section-divider .tag{
+  font-size:12px;font-weight:700;color:var(--sm-orange);
+  background:var(--sm-bg-warm);padding:6px 14px;border-radius:var(--sm-radius-pill);
+  white-space:nowrap;
+}
+
+/* CTA */
+.cta-section{
+  margin-top:32px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;
+}
+.cta-section p{font-size:14px;color:var(--sm-text-mid);line-height:1.5}
+.btn-primary{
+  width:100%;padding:20px;background:var(--sm-orange);border:none;border-radius:var(--sm-radius-pill);
+  font-size:17px;font-weight:700;color:#fff;cursor:pointer;transition:all .2s;
+  box-shadow:var(--sm-shadow-orange);font-family:inherit;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;
+}
+.btn-primary:hover{background:var(--sm-orange-hover)}
+.btn-primary:active{transform:scale(.98)}
+.btn-outline{
+  width:100%;padding:18px;background:#fff;border:1px solid var(--sm-border);border-radius:var(--sm-radius-pill);
+  font-size:15px;font-weight:600;color:var(--sm-black);cursor:pointer;transition:all .2s;
+  font-family:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center;
+}
+.btn-outline:hover{border-color:var(--sm-orange);color:var(--sm-orange);background:var(--sm-bg-warm)}
+
+/* Back to top */
+.back-to-top{
+  position:fixed;bottom:24px;right:24px;width:44px;height:44px;
+  border-radius:50%;background:var(--sm-orange);color:#fff;border:none;
+  box-shadow:var(--sm-shadow-orange);cursor:pointer;
+  display:none;align-items:center;justify-content:center;
+  transition:all .2s;z-index:100;font-size:18px;
+}
+.back-to-top.show{display:flex}
+.back-to-top:hover{background:var(--sm-orange-hover);transform:scale(1.05)}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title"><span>생선요리</span><br>완전정복 가이드</h1>
+    <p class="page-desc">알아두면 요리가 달라지는 생선 상식 9가지.<br>초보부터 고수까지, 단계별로 알아보세요!</p>
+  </div>
+
+  <!-- Nav Tabs -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection(0)">🐣 기본상식</button>
+    <button class="nav-tab" onclick="showSection(1)">🐟 조리노하우</button>
+    <button class="nav-tab" onclick="showSection(2)">🐟 깊은지식</button>
+  </div>
+
+  <!-- Section 0: 기초 -->
+  <div class="section active" id="section0">
+
+    <div class="info-card">
+      <div class="card-number">1</div>
+      <div class="card-question">냉동 생선, 어떻게 해동해야 할까?</div>
+      <div class="card-body">
+        실온 해동은 세균 번식 위험이 있고, 뜨거운 물은 겉만 익어버려요. <strong>냉장실에서 천천히 해동하는 것이 가장 안전하고 맛있는 방법</strong>입니다. 전날 밤 냉장실로 옮겨두면 다음 날 최적의 상태로 조리할 수 있어요.
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">TIP</div>
+        급하게 해동해야 할 때는 밀봉한 채 흐르는 찬물에 담가두세요. 전자레인지 해동은 육질이 퍼질 수 있으니 가급적 피하는 게 좋아요.
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="card-number">2</div>
+      <div class="card-question">생선구이, 어느 쪽을 먼저 구워야 할까?</div>
+      <div class="card-body">
+        살코기가 아니라 <strong>껍질 쪽을 먼저 구워야</strong> 해요. 껍질이 먼저 구워지면 형태가 잡혀서 뒤집을 때 살이 부서지지 않습니다. 중불에서 껍질 쪽 70%, 살 쪽 30% 비율로 구우면 완벽한 생선구이 완성!
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">TIP</div>
+        팬에 구울 때는 기름을 충분히 두르고, 그릴에 구울 때는 석쇠에 식용유를 발라두면 껍질이 달라붙지 않아요.
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="card-number">3</div>
+      <div class="card-question">우유가 생선 비린내를 없앨 수 있을까?</div>
+      <div class="card-body">
+        네, 효과적이에요! 우유 속 <strong>카제인 단백질이 비린내 원인 물질(트리메틸아민)을 흡착</strong>합니다. 조리 전 우유에 30분 정도 재워두면 비린내 걱정 끝! 레몬즙이나 청주도 좋은 대안이에요.
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">TIP</div>
+        우유 외에도 레몬즙, 청주, 생강이 비린내 제거에 효과적이에요. 생선 종류에 따라 맞는 재료를 골라 사용해보세요.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 1: 중급 -->
+  <div class="section" id="section1">
+
+    <div class="info-card">
+      <div class="card-number">4</div>
+      <div class="card-question">에어프라이어로 생선 구울 때 최적 온도는?</div>
+      <div class="card-body">
+        너무 높은 온도에서는 겉만 타고 속은 덜 익어요. <strong>180°C에서 15~20분이 최적</strong>으로, 속까지 골고루 익히면서 겉은 바삭하게 만들어줍니다. 조리 중간에 한 번 뒤집어주면 더 좋아요!
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">TIP</div>
+        에어프라이어 바닥에 종이호일을 깔면 기름이 튀는 것을 방지하고 뒷정리가 편해져요. 생선 두께에 따라 시간을 조절하세요.
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="card-number">5</div>
+      <div class="card-question">생선 조림에 설탕을 넣는 진짜 이유는?</div>
+      <div class="card-body">
+        단맛을 위해서라고 생각하기 쉽지만, <strong>설탕의 주된 역할은 비린내 중화</strong>예요. 간장의 감칠맛과 설탕의 비린내 제거 효과가 합쳐져 깊은 맛의 조림이 완성됩니다.
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">TIP</div>
+        설탕 대신 매실액이나 물엿을 사용해도 비린내 제거 효과를 얻을 수 있어요. 양을 조금씩 넣으면서 맛을 봐주세요.
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="card-number">6</div>
+      <div class="card-question">생선찌개에 된장을 넣으면 좋은 이유는?</div>
+      <div class="card-body">
+        <strong>된장 속 발효 미생물이 비린내 물질을 분해</strong>해줘요. 무, 두부, 대파와 함께 끓이면 비린내 없이 시원하고 깊은 국물 맛을 낼 수 있습니다.
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">TIP</div>
+        된장은 한 숟갈 정도만 넣으면 충분해요. 너무 많이 넣으면 된장찌개가 되어버리니 주의! 고춧가루를 살짝 넣으면 칼칼한 맛이 더해져요.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: 고급 -->
+  <div class="section" id="section2">
+
+    <div class="info-card">
+      <div class="card-number">7</div>
+      <div class="card-question">튀김 반죽에 탄산수를 넣으면 어떤 효과가?</div>
+      <div class="card-body">
+        <strong>탄산의 기포가 반죽 속 미세한 공간을 만들어</strong> 튀겼을 때 더 바삭한 식감을 만들어줍니다. 차가운 탄산수를 사용하면 효과가 더 커요. 프로 셰프들의 비밀 팁!
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">TIP</div>
+        반죽에 계란 대신 탄산수만 사용하면 더 가볍고 바삭한 텍스처를 얻을 수 있어요. 반죽은 덩어리가 약간 남을 정도로만 섞는 게 포인트!
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="card-number">8</div>
+      <div class="card-question">생선의 육질이 소고기보다 부드러운 이유는?</div>
+      <div class="card-body">
+        <strong>물속에서는 부력 때문에 중력의 영향이 적어</strong> 근육을 많이 쓸 필요가 없습니다. 그래서 결합조직이 적고 근섬유가 짧아 육질이 부드러운 거예요. 이 때문에 생선은 조리 시간도 짧답니다!
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">TIP</div>
+        생선의 부드러운 육질 때문에 과도한 조리는 금물! 특히 흰살생선은 속까지 하얗게 변하면 바로 불을 꺼주세요.
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="card-number">9</div>
+      <div class="card-question">생선회에 와사비를 곁들이는 과학적 이유는?</div>
+      <div class="card-body">
+        와사비의 <strong>이소티오시아네이트라는 성분이 식중독균 증식을 억제하는 살균 효과</strong>가 있어요. 옛날부터 날생선과 함께 먹어온 데는 과학적 이유가 있었던 셈이죠. 다만 너무 많이 쓰면 생선 본연의 맛을 가릴 수 있으니 적당히!
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">TIP</div>
+        와사비를 간장에 풀지 말고 생선 위에 소량 올려서 먹으면 향과 살균 효과를 더 잘 느낄 수 있어요. 너무 많이 쓰면 생선 본연의 맛을 가릴 수 있으니 적당히!
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="cta-section">
+    <a class="btn-outline" href="https://seamonster.co.kr" target="_blank">씨몬스터 구경하기</a>
+  </div>
+
+</div>
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function showSection(idx) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('section' + idx).classList.add('active');
+  document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+  // Re-trigger card animations
+  document.getElementById('section' + idx).querySelectorAll('.info-card').forEach(c => {
+    c.style.animation = 'none';
+    c.offsetHeight;
+    c.style.animation = '';
+  });
+}
+
+// Back to top button
+window.addEventListener('scroll', () => {
+  document.getElementById('backToTop').classList.toggle('show', window.scrollY > 400);
+});
+</script>
+</body>
+</html>
